@@ -27,8 +27,6 @@ Think this as a work-in-progress folder.
 We now developing a new website and release the code through GitHub.
 For now on you can send feedback and ask questions to 
 
-*Simone Kalb*
-kalb@crs4.it
-
 *Gian Maria Simbula*
-simbula@crs4.it
+gian.maria.simbula@gmail.com
+
