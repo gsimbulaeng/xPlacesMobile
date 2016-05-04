@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Daft Punk Drum Pad</title>
+    <meta name="viewport" content="user-scalable=no">
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="http://cdn.socket.io/stable/socket.io.js"></script>
+    <style type="text/css">
+      body {
+        margin: 0px 0px 0px 0px;
+        background-color:#2d2e29;
+        text-align: center;
+      }
+      
+      span {
+        padding-bottom: 60px;
+      }
+
+      .pad {
+        padding: 20px;
+        paddin-top: 10px;
+      }
+
+      .sound {
+        -moz-box-shadow: 0px 1px 0px 0px #1c1b18;
+        -webkit-box-shadow: 0px 1px 0px 0px #1c1b18;
+        box-shadow: 0px 1px 0px 0px #1c1b18;
+        background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #eae0c2), color-stop(1, #ccc2a6));
+        background:-moz-linear-gradient(top, #eae0c2 5%, #ccc2a6 100%);
+        background:-webkit-linear-gradient(top, #eae0c2 5%, #ccc2a6 100%);
+        background:-o-linear-gradient(top, #eae0c2 5%, #ccc2a6 100%);
+        background:-ms-linear-gradient(top, #eae0c2 5%, #ccc2a6 100%);
+        background:linear-gradient(to bottom, #eae0c2 5%, #ccc2a6 100%);
+        filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#eae0c2', endColorstr='#ccc2a6',GradientType=0);
+        
+        background-color:#eae0c2;
+        
+        -moz-border-radius:15px;
+        -webkit-border-radius:15px;
+        border-radius:15px;
+        
+        border:2px solid #333029;
+        
+        display:inline-block;
+        color:#505739;
+        font-family:arial;
+        font-size:40px;
+        font-weight:bold;
+        padding:13px 16px;
+        text-decoration:none;
+        
+        text-shadow:0px 1px 0px #ffffff;
+        margin-bottom: 40px;
+        margin-right: 40px;
+      }
+
+      .sound:hover {
+          background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ccc2a6), color-stop(1, #eae0c2));
+          background:-moz-linear-gradient(top, #ccc2a6 5%, #eae0c2 100%);
+          background:-webkit-linear-gradient(top, #ccc2a6 5%, #eae0c2 100%);
+          background:-o-linear-gradient(top, #ccc2a6 5%, #eae0c2 100%);
+          background:-ms-linear-gradient(top, #ccc2a6 5%, #eae0c2 100%);
+          background:linear-gradient(to bottom, #ccc2a6 5%, #eae0c2 100%);
+          filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ccc2a6', endColorstr='#eae0c2',GradientType=0);
+          background-color:#ccc2a6;
+      }
+
+      .sound:active {
+          position:relative;
+          top:1px;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div class="messages">
+      <p id='connectionMessage'></p>
+    </div>
+    <div class="pad">
+        <a href="#" class="sound" id="workit">Work it</a>
+        <a href="#" class="sound" id="makeit">Make it</a>
+        <a href="#" class="sound" id="doit">Do it</a>
+        <a href="#" class="sound" id="makesus">Makes Us</a><br/>
+        <a href="#" class="sound" id="hour">Hour</a>
+        <a href="#" class="sound" id="ever">Ever</a>
+        <a href="#" class="sound" id="after">After</a>
+        <a href="#" class="sound" id="workis">Work is</a>
+        <a href="#" class="sound" id="over">Over</a><br/> 
+        <a href="#" class="sound" id="harder">Harder</a>
+        <a href="#" class="sound" id="better">Better</a>
+        <a href="#" class="sound" id="faster">Faster</a>
+        <a href="#" class="sound" id="stronger">Stronger</a>
+    </div>
+  </body>
+  <script>
+      (function() {
+        var ws; 
+        var message = ''; 
+        remote_IP_port = "ws://192.168.1.202:3000";
+        ws = new WebSocket(remote_IP_port);
+        console.log("Socket opened.");
+        
+        ws.onopen = function(ev) {
+          console.log('Connection opened.');
+        }
+        ws.onmessage = function(ev) {
+          console.log('Response from server: ' + ev.data);
+        }
+        ws.onclose = function(ev) {
+          console.log('Connection closed.');
+        }
+        ws.onerror = function(ev) {
+          console.log('An error occurred. Sorry for that.');
+        }
+
+        WebSocket.prototype.sendMessage = function(msg) {
+           this.send(msg);
+           console.log('Message sent: ' + msg);
+        }
+
+        // Don't blame me is just for testing
+        var workit = document.getElementById('workit');
+        workit.addEventListener('click', function(ev) {
+            message = this.textContent;
+            ws.sendMessage(message);
+            ev.preventDefault();
+        });
+
+        var makeit = document.getElementById('makeit');
+        makeit.addEventListener('click', function(ev) {
+            message = this.textContent;
+            ws.sendMessage(message);
+            ev.preventDefault();
+        });
+
+        var doit = document.getElementById('doit');
+        doit.addEventListener('click', function(ev) {
+            message = this.textContent;
+            ws.sendMessage(message);
+            ev.preventDefault();
+        });
+
+        var makesus = document.getElementById('makesus');
+        makesus.addEventListener('click', function(ev) {
+            message = this.textContent;
+            ws.sendMessage(message);
+            ev.preventDefault();
+        });
+
+        var hour = document.getElementById('hour');
+        hour.addEventListener('click', function(ev) {
+            message = this.textContent;
+            ws.sendMessage(message);
+            ev.preventDefault();
+        }); 
+
+       var ever = document.getElementById('ever');
+        ever.addEventListener('click', function(ev) {
+            message = this.textContent;
+            ws.sendMessage(message);
+            ev.preventDefault();
+        });
+        
+        var after = document.getElementById('after');
+        after.addEventListener('click', function(ev) {
+            message = this.textContent;
+            ws.sendMessage(message);
+            ev.preventDefault();
+        }); 
+
+        var hour = document.getElementById('hour');
+        hour.addEventListener('click', function(ev) {
+            message = this.textContent;
+            ws.sendMessage(message);
+            ev.preventDefault();
+        });
+
+        var workis = document.getElementById('workis');
+          workis.addEventListener('click', function(ev) {
+              message = this.textContent;
+              ws.sendMessage(message);
+              ev.preventDefault();
+          });
+        var over = document.getElementById('over');
+          over.addEventListener('click', function(ev) {
+              message = this.textContent;
+              ws.sendMessage(message);
+              ev.preventDefault();
+          });
+        
+        var harder = document.getElementById('harder');
+          harder.addEventListener('click', function(ev) {
+              message = this.textContent;
+              ws.sendMessage(message);
+              ev.preventDefault();
+          });  
+
+        var workis = document.getElementById('workis');
+          workis.addEventListener('click', function(ev) {
+              message = this.textContent;
+              ws.sendMessage(message);
+              ev.preventDefault();
+          });
+       
+        var better = document.getElementById('better');
+            better.addEventListener('click', function(ev) {
+                message = this.textContent;
+                ws.sendMessage(message);
+                ev.preventDefault();
+          });
+
+      var faster = document.getElementById('faster');
+            faster.addEventListener('click', function(ev) {
+                message = this.textContent;
+                ws.sendMessage(message);
+                ev.preventDefault();
+          });
+      
+      var stronger = document.getElementById('stronger');
+            stronger.addEventListener('click', function(ev) {
+                message = this.textContent;
+                ws.sendMessage(message);
+                ev.preventDefault();
+          });
+            
+      var ohno = document.getElementById('ohno');
+            ohno.addEventListener('click', function(ev) {
+                message = this.textContent;
+                ws.sendMessage(message);
+                ev.preventDefault();
+          });            
+      })(); 
+    </script>
+</html>
+
